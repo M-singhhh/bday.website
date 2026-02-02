@@ -139,67 +139,45 @@
 			}
 		}
 	</script>
-	<!-- Birthday music: place the MP3 at site root '/happy-birthday-to-you-piano-version-13976.mp3' -->
-	<audio id="birthdayAudio" src="/happy-birthday-to-you-piano-version-13976.mp3" preload="auto"></audio>
+<button id="musicButton"
+        style="
+          position: fixed;
+          right: 20px;
+          bottom: 20px;
+          z-index: 9999;
+          padding: 10px 16px;
+          border-radius: 24px;
+          background: rgba(255,255,255,0.9);
+          border: 1px solid #ccc;
+          font-weight: 600;
+          cursor: pointer;">
+  ▶ Play music
+</button>
 
-	<!-- Visible play/pause button for browsers that block autoplay -->
-	<button id="musicButton" aria-label="Play or pause birthday music" style="position:fixed;right:20px;bottom:20px;z-index:9999;padding:10px 14px;border-radius:24px;background:rgba(255,255,255,0.9);border:1px solid #ccc;font-weight:600;cursor:pointer;">Play music</button>
+<script>
+  let audio = null;
+  const button = document.getElementById("musicButton");
 
-	<script>
-	// Robust audio initialization and button handling
-	(function(){
-		const AUDIO_SRC = '/happy-birthday-to-you-piano-version-13976.mp3';
-		let audio = document.getElementById('birthdayAudio');
-		const btn = document.getElementById('musicButton');
+  button.addEventListener("click", async () => {
+    try {
+      if (!audio) {
+        audio = new Audio("./happy-birthday-to-you-piano-version-13976.mp3");
+        audio.loop = true;
+        audio.volume = 0.6;
+      }
 
-		function createAudioIfNeeded(){
-			if (!audio) {
-				audio = document.createElement('audio');
-				audio.id = 'birthdayAudio';
-				audio.preload = 'auto';
-				audio.src = AUDIO_SRC;
-				document.body.appendChild(audio);
-			}
-			return audio;
-		}
+      if (audio.paused) {
+        await audio.play();
+        button.textContent = "⏸ Pause music";
+      } else {
+        audio.pause();
+        button.textContent = "▶ Play music";
+      }
+    } catch (err) {
+      console.error("Audio error:", err);
+    }
+  });
+</script>
 
-		function updateLabel(){
-			const a = createAudioIfNeeded();
-			btn.textContent = a.paused ? 'Play music' : 'Pause music';
-		}
-
-		function showFallbackControls(a){
-			a.controls = true;
-			btn.style.display = 'none';
-		}
-
-		btn.addEventListener('click', async () => {
-			const a = createAudioIfNeeded();
-			try {
-				if (a.paused) {
-					await a.play();
-				} else {
-					a.pause();
-				}
-			} catch (err) {
-				// Play was blocked or failed; show native controls so user can start playback
-				console.warn('Audio play failed:', err);
-				showFallbackControls(a);
-			}
-			updateLabel();
-		});
-
-		// Update button label on play/pause events
-		document.addEventListener('play', (e) => {
-			if (e.target && e.target.id === 'birthdayAudio') updateLabel();
-		}, true);
-		document.addEventListener('pause', (e) => {
-			if (e.target && e.target.id === 'birthdayAudio') updateLabel();
-		}, true);
-
-		// If autoplay attempt already happened, reflect state after short delay
-		setTimeout(updateLabel, 1200);
-	})();
-	</script>
 </body>
 </html>

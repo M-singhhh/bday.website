@@ -229,3 +229,22 @@ window.birthdayApp = new BirthdayApp();
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = BirthdayApp;
 }
+// 🎵 Birthday background music (plays on first click)
+let birthdayAudio = null;
+
+function startMusicOnce() {
+    if (!birthdayAudio) {
+        birthdayAudio = new Audio("./happy-birthday-to-you-piano-version-13976.mp3");
+        birthdayAudio.loop = true;
+        birthdayAudio.volume = 0.6;
+    }
+
+    birthdayAudio.play()
+        .then(() => console.log("🎵 Music playing"))
+        .catch(err => console.error("Audio play blocked:", err));
+
+    document.removeEventListener("click", startMusicOnce);
+}
+
+document.addEventListener("click", startMusicOnce);
+
