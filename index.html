@@ -139,8 +139,8 @@
 			}
 		}
 	</script>
-	<!-- Birthday music: place the MP3 at 'music/happy-birthday-to-you-piano-version-13976.mp3' -->
-	<audio id="birthdayAudio" src="music/happy-birthday-to-you-piano-version-13976.mp3" preload="auto"></audio>
+	<!-- Birthday music: place the MP3 at site root '/happy-birthday-to-you-piano-version-13976.mp3' -->
+	<audio id="birthdayAudio" src="/happy-birthday-to-you-piano-version-13976.mp3" preload="auto"></audio>
 
 	<!-- Visible play/pause button for browsers that block autoplay -->
 	<button id="musicButton" aria-label="Play or pause birthday music" style="position:fixed;right:20px;bottom:20px;z-index:9999;padding:10px 14px;border-radius:24px;background:rgba(255,255,255,0.9);border:1px solid #ccc;font-weight:600;cursor:pointer;">Play music</button>
@@ -148,7 +148,7 @@
 	<script>
 	// Robust audio initialization and button handling
 	(function(){
-		const AUDIO_SRC = 'music/happy-birthday-to-you-piano-version-13976.mp3';
+		const AUDIO_SRC = '/happy-birthday-to-you-piano-version-13976.mp3';
 		let audio = document.getElementById('birthdayAudio');
 		const btn = document.getElementById('musicButton');
 
