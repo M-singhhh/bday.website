@@ -106,6 +106,16 @@
 					// Start heart animation after a brief delay
 					setTimeout(() => {
 						window.birthdayApp.startHeartAnimation();
+						// Try to autoplay birthday music; if blocked, show controls
+						const audio = document.getElementById('birthdayAudio');
+						if (audio) {
+							const playPromise = audio.play();
+							if (playPromise !== undefined) {
+								playPromise.catch(() => {
+									audio.controls = true;
+								});
+							}
+						}
 					}, 1000);
 
 					// Start time counter immediately
@@ -129,5 +139,7 @@
 			}
 		}
 	</script>
+	<!-- Birthday music: place the MP3 at 'music/happy-birthday-to-you-piano-version-13976.mp3' -->
+	<audio id="birthdayAudio" src="music/happy-birthday-to-you-piano-version-13976.mp3" preload="auto"></audio>
 </body>
 </html>
