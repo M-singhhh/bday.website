@@ -19,16 +19,17 @@
 		<div id="content">
 			<div id="code">
 				<span class="comments">/**</span><br />
-				<span class="space"/><span class="comments">* Today, the (add_day_here)the day of (add_month_here), is your birthday.</span><br />
+				<span class="space"/><span class="comments">* Today, the (February 2026)the day of Miss suruchi , is your birthday.</span><br />
 				<span class="space"/><span class="comments">* So I created a page to celebrate this extraordinary day.</span><br />
-				<span class="space"/><span class="comments">* That page will show you a script 'will.sh'.</span><br />
+				<span class="space"/><span class="comments">* aap president toh nhi but mere ꫂ❁🌻ꫂ❁ ho '.</span><br />
+				<span class="space"/><span class="comments">*⋆｡°✩⋆｡°✩ so very very Happyyyyy Birthdayyyyy Dear ⋆｡°✩ ⋆｡°✩ '.</span><br />
 				<span class="space"/><span class="comments">*/</span><br />
-				birthday@girl ~ $ >> <span class="keyword">cd love && sh </span> will.sh(<span class="string">"(add_Birthday_Person_Name)"</span>);<br />
+				birthday@girl ~ $ >> <span class="keyword">cd love && sh </span> will.sh(<span class="string">"(Suruchi ꫂ❁🌻ꫂ❁)"</span>);<br />
 				<span class="comments">// (add_Month_Day), when the bell rang, your age increased </span><br />
 				Date currentTime = <span class="keyword">new</span> Date(); <br />
-				SimpleDateFormat formatter = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);<br />
+				SimpleDateFormat formatter = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"2005-02-02 12:22:00"</span>);<br />
 				String dateString = formatter.format(currentTime);<br />
-				if( dateString.equals(<span class="string">"add_year-month-day 00:00:00"</span>) ){</br>
+				if( dateString.equals(<span class="string">"2026-02-02 00:00:00"</span>) ){</br>
 					u.age ++;</br>
 				}</br>
 				<span class="comments">// O! she doth teach the torches to burn bright</span><br />
@@ -65,7 +66,7 @@
 						<div id="elapseClock"></div>
 					</div>
 					<div id="loveu">
-						"What's in a name? that which we call a rose<br>
+						"What's in a name? that which we call a Sunflower<br>
                          By any other name would smell as sweet.”<br/>
 						<div class="signature">- W.Shakespeare</div>
 					</div>
@@ -79,8 +80,8 @@
 	<script type="text/javascript">
 		// Modern implementation using the new BirthdayApp class
 		const together = new Date();
-		together.setFullYear(1908, 4, 8);
-		together.setHours(8);
+		together.setFullYear(2005, 1, 2);
+		together.setHours(0);
 		together.setMinutes(0);
 		together.setSeconds(0);
 		together.setMilliseconds(0);
@@ -96,25 +97,36 @@
 			copyright.style.bottom = "10px";
 		    document.execCommand("stop");
 		} else {
-			// Wait for BirthdayApp to initialize
-			document.addEventListener('DOMContentLoaded', function() {
-				setTimeout(() => {
-					if (window.birthdayApp) {
-						window.birthdayApp.startHeartAnimation();
-					}
-				}, 5000);
-
-				// Start time counter
+			// Initialize BirthdayApp and start animations
+			function initializePage() {
 				if (window.birthdayApp) {
+					// Start typewriter effect first
+					window.birthdayApp.typewriter(document.getElementById("code"));
+					
+					// Start heart animation after a brief delay
+					setTimeout(() => {
+						window.birthdayApp.startHeartAnimation();
+					}, 1000);
+
+					// Start time counter immediately
 					window.birthdayApp.timeElapse(together);
 					setInterval(() => {
 						window.birthdayApp.timeElapse(together);
 					}, 500);
 
 					window.birthdayApp.adjustCodePosition();
-					window.birthdayApp.typewriter(document.getElementById("code"));
+				} else {
+					// Retry if BirthdayApp isn't ready yet
+					setTimeout(initializePage, 100);
 				}
-			});
+			}
+
+			// Ensure DOM is ready before initializing
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', initializePage);
+			} else {
+				initializePage();
+			}
 		}
 	</script>
 </body>
